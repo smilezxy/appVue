@@ -16,9 +16,19 @@ import '../statics/mui/css/mui.css'
 import DrawerLayout from 'vue-drawer-layout'
 Vue.use(DrawerLayout)
 
+// import vueResource from 'vue-resource';
+// Vue.use(vueResource);
+
+//方便在每个vue对象里面使用   this.$axios
+// import axios from 'axios';
+// axios.defaults.baseURL = 'https://demo.proudsmart.com/api/rest/post';
+// Vue.prototype.$axios = axios
+
+
 
 //导入路由
 import router1 from './router.js'
+
 
 import app from './app.vue';
 

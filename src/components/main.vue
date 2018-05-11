@@ -1,14 +1,14 @@
 <template>
-  <vue-drawer-layout ref="drawerLayout">
+  <vue-drawer-layout ref="drawerLayout" :content-drawable="true"  @mask-click="handleMaskClick">>
   	<!-- 侧边栏 -->
-    <div class="drawer" slot="drawer" style="background-color:red">
-      <div class="text">This is drawer</div>
-      <a href="javascript:void(0)" class="btn"  @click="handleToggleDrawer">Hide Drawer</a>
+    <div class="drawer" slot="drawer">
+       <drawer></drawer>
     </div>
     <!-- 主页面 -->
     <div class="content" slot="content">
 		<header class="mui-bar mui-bar-nav main-header-bar header-bg">
-      		<a href="javascript:void(0)" class="mui-icon mui-icon-bars mui-pull-left"  @click="handleToggleDrawer"></a>
+      		<a href="javascript:void(0)" class="mui-icon mui-icon-bars mui-pull-left"  
+      		@click="handleToggleDrawer"></a>
       		<h1 id="page-id-title" class="mui-title header-font-color">首页</h1>
     	</header>
 		<router-view></router-view>
@@ -43,13 +43,19 @@
 </template>
 
 <script>
-
+import drawer from './home/drawer.vue'
  export default {
     methods: {
       handleToggleDrawer() {
         this.$refs.drawerLayout.toggle();
+      },
+       handleMaskClick() {
+        this.$refs.drawerLayout.toggle(false);
       }
-    }
+    },
+    components:{
+		drawer
+	},
   }
 </script>
 

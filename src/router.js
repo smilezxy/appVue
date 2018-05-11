@@ -7,7 +7,7 @@ Vue.use(vueRouter);
 // 导入路由规则对应的组件对象
 import login from './components/login.vue' //登录页
 import main from './components/main.vue' //登录进去的主框架
-import home from './components/home.vue';
+import home from './components/home/home.vue';
 import customer from './components/customer/customer.vue'
 import device from './components/device/device.vue'
 import warming from './components/warming/warming.vue'

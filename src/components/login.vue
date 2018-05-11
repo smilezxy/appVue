@@ -8,8 +8,6 @@
             <input type="password" placeholder="请输入密码" v-model="password">
             <button v-on:click="login">登录</button>
         </div>
-       
-
     </div>
 </template>
 
@@ -59,6 +57,8 @@
 </style>
 
 <script>
+    import { Toast } from 'mint-ui';
+    import {appFutureImpl} from '../future.js'
     export default{
         data(){
             return{
@@ -66,19 +66,20 @@
                 password: '',
             }
         },
-  //       mounted(){
-  //       /*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
-  //       if(getCookie('username')){
-  //        this.$router.push('/home')
-  //       }
-  // },
+    mounted(){
+        //自动登录
+        if(this.username && this.password) {
+          this.login()
+        }
+      },
     methods:{
         login(){
             if(this.username == "" || this.password == ""){
-                alert("请输入用户名或密码")
+                Toast("请输入用户名或密码")
             }else{
-                console.log("可以了")
-                this.$router.push({ path: '/main' }) 
+                appFutureImpl.goLogin(this.username,this.password, (data) => {
+                    this.$router.push('/main')
+                })
       }
     }
   }

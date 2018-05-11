@@ -5,14 +5,16 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --hot --open --port 8081 --contentBase src"
+    "dev": "webpack-dev-server --inline --hot --open --port 63342 --contentBase src"
   },
   "author": "zxy",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "mint-ui": "^2.2.13",
     "vue": "^2.5.16",
     "vue-drawer-layout": "^0.3.1",
+    "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
