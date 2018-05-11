@@ -9,7 +9,7 @@
 		<header class="mui-bar mui-bar-nav main-header-bar header-bg">
       		<a href="javascript:void(0)" class="mui-icon mui-icon-bars mui-pull-left"  
       		@click="handleToggleDrawer"></a>
-      		<h1 id="page-id-title" class="mui-title header-font-color">首页</h1>
+      		<h1  class="mui-title">{{title}}</h1>
     	</header>
 		<router-view></router-view>
 
@@ -45,6 +45,11 @@
 <script>
 import drawer from './home/drawer.vue'
  export default {
+ 	data () {
+ 		return {
+ 			title:"首页"
+ 		}
+ 	},
     methods: {
       handleToggleDrawer() {
         this.$refs.drawerLayout.toggle();
@@ -56,6 +61,21 @@ import drawer from './home/drawer.vue'
     components:{
 		drawer
 	},
+	watch:{
+        '$route.path':function (newVal,oldView) {
+            if(newVal == '/customer') {
+            	this.title = "客户"
+            }else  if(newVal == '/device') {
+            	this.title = "设备"
+            }else  if(newVal == '/warming') {
+            	this.title = "告警"
+            }else  if(newVal == '/order') {
+            	this.title = "工单"
+            }else {
+            	this.title = "首页"
+            }
+        }   
+	}
   }
 </script>
 
