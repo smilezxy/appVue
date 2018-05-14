@@ -62,15 +62,15 @@
     export default{
         data(){
             return{
-                username: '',
-                password: '',
+                username: 'ps_kongtiao',
+                password: 'abc123',
             }
         },
     mounted(){
         //自动登录
-        if(this.username && this.password) {
-          this.login()
-        }
+        // if(this.username && this.password) {
+        //   this.login()
+        // }
       },
     methods:{
         login(){

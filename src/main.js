@@ -25,6 +25,9 @@ Vue.use(DrawerLayout)
 // Vue.prototype.$axios = axios
 
 
+//引入上拉加载下拉刷新
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
 
 //导入路由
 import router1 from './router.js'
