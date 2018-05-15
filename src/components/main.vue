@@ -6,7 +6,7 @@
     </div>
     <!-- 主页面 -->
     <div class="content" slot="content">
-		<header class="mui-bar mui-bar-nav main-header-bar header-bg">
+		<header class="mui-bar mui-bar-nav main-header-bar">
       		<a href="javascript:void(0)" class="mui-icon mui-icon-bars mui-pull-left"  
       		@click="handleToggleDrawer"></a>
       		<h1  class="mui-title">{{title}}</h1>
@@ -61,6 +61,21 @@ import drawer from './home/drawer.vue'
     components:{
 		drawer
 	},
+	created:function () {
+		console.log(this.$route.path)
+		let router = this.$route.path;
+		if(router == '/customer') {
+     	this.title = "客户"
+     }else  if(router == '/device') {
+     	this.title = "设备"
+     }else  if(router == '/warming') {
+     	this.title = "告警"
+     }else  if(router == '/order') {
+     	this.title = "工单"
+     }else {
+     	this.title = "首页"
+     }
+	},
 	watch:{
         '$route.path':function (newVal,oldView) {
             if(newVal == '/customer') {
@@ -80,18 +95,6 @@ import drawer from './home/drawer.vue'
 </script>
 
 <style scoped>
-#back{
-	width: 60px;
-	position: absolute;
-	top:10px;
-	left:10px;
-	z-index: 101;
-}
-#back a{
-	color:white;
-	font-size: 16px;
-	font-weight: bold;
-}
 .main-header-bar {
   background-color: #24BCE7;
   background-position: initial initial;

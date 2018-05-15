@@ -59,6 +59,7 @@
 <script>
     import { Toast } from 'mint-ui';
     import {appFutureImpl} from '../future.js'
+
     export default{
         data(){
             return{

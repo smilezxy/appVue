@@ -10,7 +10,8 @@ Vue.use(mintui);
 //注册mui的css样式
 import '../statics/mui/css/mui.css'
 
-
+//全局的css样式
+import '../statics/css/common.css'
 
 //引入侧边栏
 import DrawerLayout from 'vue-drawer-layout'
