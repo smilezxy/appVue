@@ -11,12 +11,14 @@
               :on-infinite="infinite"
               ref="my_scroller">
         <ul class="mui-table-view">
-            <!-- <li class="mui-table-view-cell" @click="onItemClick(index,item)">{{item}}</li> -->
-            <li class="mui-table-view-cell mui-media" v-for="(item, index) in items" :key="index">
+            <li class="mui-table-view-cell mui-media" v-for="(item,index) in deviceList" :key="index" @click="onItemClick(item.id)">
                 <img class="device_img mui-pull-left" src="../../../statics/image/no_image.jpg">
                 <div class="mui-media-body">
-                 幸福
-                <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                 {{item.label}}
+                <p class='mui-ellipsis'>
+                  序列号：{{item.sn}}
+
+                </p>
                 </div>
             </li>
         </ul>
@@ -25,66 +27,75 @@
 </template>
 
 <script>
+import {
+	Toast
+} from 'mint-ui';
 export default {
   data() {
     return {
-      items: [],
       searchValue: "",
-      customersData:{}
-    };
-  },
-  created () {
-     this.getAllCustomerInfoList ()
-  },
-  mounted() {
-    for (let i = 1; i <= 20; i++) {
-      this.items.push(i + " - keep walking, be 2 with you.");
+      customersData:{},
+      resourceCondition:{},
+      queryParams:{
+		      "start": 0,
+		      "length": 10,
+		      "sort": "createTime",
+		      "sortType": "desc",
+		      "statCount": true
+      },
+      deviceList:[]
     }
-
-    this.top = 1;
-    this.bottom = 20;
   },
-
   methods: {
     getAllCustomerInfoList () {
-       appFutureImpl.getAllCustomerInfoList((data) => {
-          console.log(data)
+       appFutureImpl.getAllCustomerInfoList((result) => {
           if(null != result) {
+            this.customersData = {};
 				    for(var i = 0; i < result.length; i++) {
-				    	customersData[result[i].id + ""] = result[i].customerName;
+				    	this.customersData[result[i].id + ""] = result[i].customerName;
 				    }
-			    }
+          }
+          this.queryParams.start = 0;
+			    this.queryParams.statCount = true;
+			    this.queryParams.total = 0;
+          appFutureImpl.getDevicesByConditionWithPage([this.resourceCondition, this.queryParams],(result,total,msg) => {
+              if(msg == null) {
+                  this.queryParams.start = this.queryParams.start + this.queryParams.length;
+					        this.queryParams.statCount = false;
+					        this.queryParams.total = total;
+              }else {
+                Toast(msg);
+					      return;
+              }
+              this.deviceList = result;
+          })
        })
     },
     //一开始加载的时候下拉刷新的时候请求数据
     refresh(done) {
-      setTimeout(() => {
-        let start = this.top - 1;
-
-        for (let i = start; i > start - 10; i--) {
-          this.items.splice(0, 0, i + " - keep walking, be 2 with you.");
-        }
-
-        this.top = this.top - 10;
-
-        done();
-      }, 1500);
+      this.getAllCustomerInfoList()
+      done()
     },
     //每当向上滑动的时候去请求数据
     infinite(done) {
-      console.log("infinite called..");
-
-      setTimeout(() => {
-        let start = this.bottom + 1;
-
-        for (let i = start; i < start + 10; i++) {
-          this.items.push(i + " - keep walking, be 2 with you.");
-        }
-
-        this.bottom = this.bottom + 10;
-
-        done();
-      }, 1500);
+      if(this.queryParams.start > this.queryParams.total) {
+        done()
+		  	return;
+      }
+      appFutureImpl.getDevicesByConditionWithPage([this.resourceCondition, this.queryParams],(result,total,msg) => {
+              if(msg == null) {
+                this.queryParams.start = this.queryParams.start + this.queryParams.length;
+				        this.queryParams.statCount = false;
+				        this.queryParams.total = total;
+              }else {
+                Toast(msg);
+					      return;
+              }
+              this.deviceList = result;
+              console.log(this.deviceList)
+          })
+      
+      done()
     },
 
     onItemClick(index, item) {
