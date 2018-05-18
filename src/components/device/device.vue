@@ -11,16 +11,18 @@
               :on-infinite="infinite"
               ref="my_scroller">
         <ul class="mui-table-view">
-            <li class="mui-table-view-cell mui-media" v-for="(item,index) in deviceList" :key="index" @click="onItemClick(item.id)">
+            <li class="mui-table-view-cell mui-media" v-for="(item,index) in deviceList" :key="index">
+              <router-link  v-bind="{to:'/device/devicedetail/'+item.id}" >
                 <img class="device_img mui-pull-left" src="../../../statics/image/no_image.jpg">
                 <div class="mui-media-body">
                  {{item.label}}
                 <p class='mui-ellipsis'>
                   序列号：{{item.sn}}
-
                 </p>
                 </div>
+               </router-link>
             </li>
+         
         </ul>
     </scroller>
   </div>
@@ -92,15 +94,12 @@ export default {
 					      return;
               }
               this.deviceList = result;
-              console.log(this.deviceList)
+              //console.log(this.deviceList)
           })
       
       done()
     },
 
-    onItemClick(index, item) {
-      console.log(index);
-    }
   }
 };
 </script>

@@ -12,6 +12,7 @@ import customer from './components/customer/customer.vue'
 import device from './components/device/device.vue'
 import warming from './components/warming/warming.vue'
 import order from './components/order/order.vue'
+import  deviceDetail from './components/device/deviceDetail.vue'
 
 
 
@@ -33,13 +34,16 @@ export default new vueRouter({
 				component: customer
 			}, {
 				path: '/device',
-				component: device
+				component: device,
 			}, {
 				path: '/warming',
 				component: warming
 			}, {
 				path: '/order',
 				component: order
+			},{
+				path:'/device/devicedetail/:id',
+				component:deviceDetail
 			}],
 			redirect: '/home'
 		},

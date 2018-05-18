@@ -86,7 +86,9 @@ import drawer from './home/drawer.vue'
             	this.title = "告警"
             }else  if(newVal == '/order') {
             	this.title = "工单"
-            }else {
+            }else  if(newVal == '/device/devicedetail/:id') {
+     					this.title = "设备详情"
+     				}else {
             	this.title = "首页"
             }
         }   
